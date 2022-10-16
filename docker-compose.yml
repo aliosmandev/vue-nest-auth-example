@@ -1,0 +1,39 @@
+version: "3.7"
+
+services:
+  frontend:
+    build:
+      context: ./packages/frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "3000:3000"
+  backend:
+    build:
+      context: ./packages/backend
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+    networks:
+      - app
+  mongo:
+    image: mongo
+    volumes:
+      - mongodb:/usr/local/mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootroot
+      MONGO_INITDB_DATABASE: vue-nest-auth-example
+    ports:
+      - 27017:27017
+    networks:
+      - app
+
+volumes:
+  mongodb:
+networks:
+  app:
+    driver: bridge
