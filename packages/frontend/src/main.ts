@@ -6,6 +6,8 @@ import AllRules from "@vee-validate/rules";
 import App from "./App.vue";
 import router from "./router";
 
+import "@/assets/css/tailwind.css";
+
 const app = createApp(App);
 
 Object.keys(AllRules).forEach((rule) => {
