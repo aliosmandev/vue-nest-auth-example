@@ -21,5 +21,15 @@ export const useAuthStore = defineStore("auth", () => {
     }
   };
 
-  return { user, isAuthenticated, errorMessage, login };
+  const logout = async () => {
+    user.value = null;
+    localStorage.removeItem("token");
+  };
+
+  const me = async () => {
+    const response = await axios.get("/users/me");
+    user.value = response.data;
+  };
+
+  return { user, isAuthenticated, errorMessage, login, logout, me };
 });

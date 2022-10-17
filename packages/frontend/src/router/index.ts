@@ -31,8 +31,7 @@ const router = createRouter({
   ],
 });
 
-router.beforeEach((to, from, next) => {
-  const store = useAuthStore();
+router.beforeEach(async (to, from, next) => {
   next();
 });
 

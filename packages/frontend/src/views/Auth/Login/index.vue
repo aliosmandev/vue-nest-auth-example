@@ -5,10 +5,10 @@
       <p class="text-red-500 font-bold">{{ authStore.errorMessage }}</p>
       <form class="space-y-4 md:space-y-6" @submit="login">
         <VeeField name="email" v-slot="{ field }" rules="required|email">
-          <Input v-bind="field" label="Your Email" placeholder="Email" />
+          <Input v-bind="field" name="email" label="Your Email" placeholder="Email" />
         </VeeField>
         <VeeField name="password" v-slot="{ field }" rules="required">
-          <Input v-bind="field" type="password" rules="required" label="Password" placeholder="••••••••" />
+          <Input v-bind="field" name="password" type="password" rules="required" label="Password" placeholder="••••••••" />
         </VeeField>
         <button
           type="submit"
