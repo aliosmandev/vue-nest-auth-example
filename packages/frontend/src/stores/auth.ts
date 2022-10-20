@@ -3,7 +3,7 @@ import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
-import axios from "@/plugins/axios";
+import * as auth from "@/services/auth";
 
 export const useAuthStore = defineStore("auth", () => {
   const toast = useToast();
@@ -13,9 +13,9 @@ export const useAuthStore = defineStore("auth", () => {
 
   const login = async (payload: LoginBody) => {
     try {
-      const response = await axios.post("/auth/login", payload);
-      user.value = response.data.user;
-      localStorage.setItem("token", response.data.accessToken);
+      const { data } = await auth.login(payload);
+      user.value = data.user;
+      localStorage.setItem("token", data.token);
       router.replace("/dashboard");
     } catch (err: any) {
       toast.error(err.response.data.message);
@@ -28,7 +28,7 @@ export const useAuthStore = defineStore("auth", () => {
   };
 
   const me = async () => {
-    const response = await axios.get("/users/me");
+    const response = await auth.getUser();
     user.value = response.data;
   };
 

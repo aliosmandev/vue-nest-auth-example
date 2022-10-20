@@ -23,7 +23,7 @@ let AuthService = class AuthService {
         const passwordsMatch = await this.usersService.validateCredentials(dbUser, loginDto.password);
         return {
             user: dbUser,
-            accessToken: this.createAccessToken(dbUser),
+            token: this.createAccessToken(dbUser),
         };
     }
     createAccessToken(user) {

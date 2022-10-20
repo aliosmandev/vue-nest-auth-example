@@ -11,4 +11,9 @@ export interface LoginBody {
   password: string;
 }
 
+export interface LoginResponse {
+  token: string;
+  user: User;
+}
+
 export type RegisterBody = LoginBody;

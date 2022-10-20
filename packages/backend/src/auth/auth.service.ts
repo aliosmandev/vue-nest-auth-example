@@ -14,7 +14,7 @@ export class AuthService {
 
     return {
       user: dbUser,
-      accessToken: this.createAccessToken(dbUser),
+      token: this.createAccessToken(dbUser),
     };
   }
 
