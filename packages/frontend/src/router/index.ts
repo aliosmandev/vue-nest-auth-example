@@ -3,6 +3,7 @@ import { useAuthStore } from "@/stores/auth";
 import Home from "@/views/Home/index.vue";
 import Login from "@/views/Auth/Login/index.vue";
 import Register from "@/views/Auth/Register/index.vue";
+import DashboardHome from "@/views/Dashboard/Home/index.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,6 +26,16 @@ const router = createRouter({
         {
           path: "register",
           component: Register,
+        },
+      ],
+    },
+    {
+      path: "/dashboard",
+      name: "dashboard",
+      children: [
+        {
+          path: "",
+          component: DashboardHome,
         },
       ],
     },
