@@ -8,31 +8,28 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersService = void 0;
-const mongoose_1 = require("mongoose");
 const common_1 = require("@nestjs/common");
-const mongoose_2 = require("@nestjs/mongoose");
 const bcrypt = require("bcrypt");
+const prisma_service_1 = require("../prisma/prisma.service");
 let UsersService = class UsersService {
-    constructor(userModel) {
-        this.userModel = userModel;
+    constructor(prisma) {
+        this.prisma = prisma;
     }
     async create(createUserDto) {
         const user = await this.isEmailUnique(createUserDto.email);
         if (user)
             throw new common_1.NotFoundException('Email most be unique');
-        const data = await this.userModel.create(createUserDto);
-        return data;
+        createUserDto.password = await bcrypt.hash(createUserDto.password, 10);
+        const createdUser = await this.prisma.user.create({ data: createUserDto });
+        return createdUser;
     }
     async isEmailUnique(email) {
-        return await this.userModel.findOne({ email });
+        return await this.prisma.user.findFirst({ where: { email } });
     }
     async findUserByEmail(email) {
-        const user = await this.userModel.findOne({ email });
+        const user = await this.prisma.user.findFirst({ where: { email } });
         if (!user) {
             throw new common_1.BadRequestException('Email not found');
         }
@@ -46,7 +43,7 @@ let UsersService = class UsersService {
         return match;
     }
     async validateUser(userId) {
-        const user = await this.userModel.findById(userId);
+        const user = await this.prisma.user.findFirst({ where: { id: userId } });
         if (!user) {
             throw new common_1.UnauthorizedException('user not found');
         }
@@ -55,8 +52,7 @@ let UsersService = class UsersService {
 };
 UsersService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, mongoose_2.InjectModel)('User')),
-    __metadata("design:paramtypes", [mongoose_1.Model])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
 ], UsersService);
 exports.UsersService = UsersService;
 //# sourceMappingURL=users.service.js.map

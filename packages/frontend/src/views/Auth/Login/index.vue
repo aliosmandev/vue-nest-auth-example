@@ -27,11 +27,9 @@
 <script lang="ts" setup>
 import type { LoginBody } from "@/types";
 import { useForm } from "vee-validate";
-import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
 import Input from "@/components/Input/index.vue";
 const authStore = useAuthStore();
-const router = useRouter();
 
 const { handleSubmit } = useForm<LoginBody>();
 

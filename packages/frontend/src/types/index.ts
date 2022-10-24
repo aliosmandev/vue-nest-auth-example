@@ -12,7 +12,7 @@ export interface LoginBody {
 }
 
 export interface LoginResponse {
-  token: string;
+  accessToken: string;
   user: User;
 }
 

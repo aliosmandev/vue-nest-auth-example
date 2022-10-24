@@ -18,17 +18,24 @@ let AuthService = class AuthService {
         this.usersService = usersService;
         this.jwtService = jwtService;
     }
+    async register(createUserDto) {
+        const user = await this.usersService.create(createUserDto);
+        return {
+            user,
+            accessToken: this.createAccessToken(user),
+        };
+    }
     async login(loginDto) {
         const dbUser = await this.usersService.findUserByEmail(loginDto.email);
         const passwordsMatch = await this.usersService.validateCredentials(dbUser, loginDto.password);
         return {
             user: dbUser,
-            token: this.createAccessToken(dbUser),
+            accessToken: this.createAccessToken(dbUser),
         };
     }
     createAccessToken(user) {
         const payload = {
-            userId: user._id,
+            userId: user.id,
         };
         return this.jwtService.sign(payload);
     }

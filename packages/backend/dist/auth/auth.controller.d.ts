@@ -1,16 +1,12 @@
 import { UsersService } from 'src/users/users.service';
 import { AuthService } from './auth.service';
+import { AuthResponse } from './dto/auth-repsonse.dto';
 import { CreateUserDto } from './dto/create-user.dto';
-import { User } from 'src/users/interfaces/user.interface';
+import { UserLoginDto } from './dto/user-login.dto';
 export declare class AuthController {
     private readonly authService;
     private readonly usersService;
     constructor(authService: AuthService, usersService: UsersService);
-    create(craeteUserData: CreateUserDto): Promise<User>;
-    login(loginData: CreateUserDto): Promise<{
-        user: import("mongoose").Document<unknown, any, User> & User & {
-            _id: import("mongoose").Types.ObjectId;
-        };
-        token: string;
-    }>;
+    create(craeteUserData: CreateUserDto): Promise<AuthResponse>;
+    login(loginDto: UserLoginDto): Promise<AuthResponse>;
 }
