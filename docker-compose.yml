@@ -16,24 +16,24 @@ services:
     ports:
       - "5000:5000"
     depends_on:
-      - mongo
+      - postgres
     networks:
       - app
-  mongo:
-    image: mongo
-    volumes:
-      - mongodb:/usr/local/mongodb
+  postgres:
+    image: postgres:10.3
+    restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: rootroot
-      MONGO_INITDB_DATABASE: vue-nest-auth-example
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=rootroot
+    volumes:
+      - postgres:/var/lib/postgresql/data
     ports:
-      - 27017:27017
+      - "5432:5432"
     networks:
       - app
 
 volumes:
-  mongodb:
+  postgres:
 networks:
   app:
     driver: bridge
