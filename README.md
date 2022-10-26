@@ -34,7 +34,7 @@ After successful launch, go to the following URL in your browser!
 If it fails for that reason, please specify the start-up separately as follows.
 
 ```bash
-docker-compose up postgre
+docker-compose up postgres
 ```
 
 See `docker-compose.yaml` if you want to know more.
