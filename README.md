@@ -8,7 +8,8 @@
   - Vee Validate
 - Backend
   - NestJS
-  - MongoDB
+  - PostgreSQL
+  - Prisma
 - Other
   - ESLint / Prettier
   - Docker / Docker Compose
@@ -33,14 +34,14 @@ After successful launch, go to the following URL in your browser!
 If it fails for that reason, please specify the start-up separately as follows.
 
 ```bash
-docker-compose up mongo
+docker-compose up postgre
 ```
 
 See `docker-compose.yaml` if you want to know more.
 
 # Local
 
-Prepare MongoDB and create a database for development. then fill in the environment variables in the `.env.example` file.
+Prepare PostgreSQL and create a database for development. then fill in the environment variables in the `.env.example` file.
 
 # Frontend
 
